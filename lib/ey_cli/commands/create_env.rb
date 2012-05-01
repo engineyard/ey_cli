@@ -30,7 +30,10 @@ Options:
        --db_instances number      Number of database slaves.
        --solo                     A single instance for application and database.
        --stack                    App server stack, either passenger, unicorn or trinidad.
-       --db_stack                 DB stack, either mysql/mysql5_0, mysql5_5, or postgresql/postgres9_1
+       --db_stack                 DB stack, valid options:
+                                      mysql (for MySQL 5.0),
+                                      mysql5_5 (for MySQL 5.5),
+                                      postgresql or postgres9_1 (for PostgreSQL 9.1)
        --app_size                 Size of the app instances.
        --db_size                  Size of the db instances.
 EOF
@@ -55,7 +58,7 @@ EOF
             #on :util_instances, true, :as => :integer # FIXME: utils instances are handled differently
             on :solo, false, :default => false
             on :stack, true, :matches => /passenger|unicorn|puma|thin|trinidad/
-            on :db_stack, true, :matches => /mysql|postgresql/
+            on :db_stack, true, :matches => /mysql|postgres/
             on :app_size, true do |size|
               EnvParser.check_instance_size(size)
             end
@@ -98,8 +101,7 @@ EOF
           
           if opts[:db_stack]
             case opts[:db_stack].to_sym
-            when :mysql       then opts[:db_stack] = 'mysql5_0'
-            when :postgresql  then opts[:db_stack] = 'postgres9_1'
+            when :postgresql then opts[:db_stack] = 'postgres9_1'
             end
           end
 
