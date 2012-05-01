@@ -43,7 +43,7 @@ Options:
        --db_stack                 DB stack, valid options:
                                       mysql (for MySQL 5.0),
                                       mysql5_5 (for MySQL 5.5),
-                                      postgresql or postgres9_1 (for PostgresSQL 9.1)
+                                      postgresql or postgres9_1 (for PostgreSQL 9.1)
        --no_env                   Prevent to not create a default environment.
        --app_size                 Size of the app instances.
        --db_size                  Size of the db instances.
